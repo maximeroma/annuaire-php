@@ -6,6 +6,26 @@
     <title>User Table</title>
   </head>
   <body>
+
+    <div class="list-group">
+    <a href="#" class="list-group-item active">Groupe</a>
+    <?php
+    try{
+      $bdd = new PDO('mysql:host=localhost;dbname=annuaire-php;charset=utf8', 'annuaire-php', 'fyzCUeC935WghByd');
+    }
+    catch(Exception $e){
+      die('Erreur :' . $e->getMessage());
+    }
+    $query = 'SELECT * FROM groupe';
+    $reponse=$bdd->query($query);
+
+    foreach($reponse as $element){
+      echo '<a href="groupTable.php?id='. $element['id'] .'&role=select" class="list-group-item">' . $element['name'] . '</a>';
+    }
+
+
+    ?>
+  </div>
     <table class="table">
       <thead>
         <th>ID</th>
@@ -20,12 +40,6 @@
       </thead>
       <tbody>
         <?php
-        try{
-          $bdd = new PDO('mysql:host=localhost;dbname=annuaire-php;charset=utf8', 'annuaire-php', 'fyzCUeC935WghByd');
-        }
-        catch(Exception $e){
-          die('Erreur :' . $e->getMessage());
-        }
         $reponse = $bdd->query('SELECT * FROM annuaire');
 
         //print_r($reponse->fetch());

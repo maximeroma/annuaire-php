@@ -9,7 +9,6 @@
   <body>
     <table class="table">
       <thead>
-        <th>ID</th>
         <th>Name</th>
       </thead>
       <tbody>
@@ -20,10 +19,18 @@
           catch(Exception $e){
             die('Erreur :' . $e->getMessage());
           }
-          $reponse = $bdd->query('SELECT * FROM groupe');
-          foreach($reponse as $element){
-            echo '<tr><td>' . $element['id'] . '</td><td>' . $element['name'] . '</td></tr>';
+          if($_GET['role']==="select" && !empty($_GET['id'])){
+            $query = 'SELECT * FROM annuaire JOIN appartenir ON annuaire.id = appartenir.FK_contact JOIN groupe ON appartenir.FK_groupe = groupe.id WHERE groupe.id='.$_GET['id'].'';
+            $reponse = $bdd->query($query);
+            foreach($reponse as $element){
+              echo '<tr><td>'. $element['id'] .'</td><td>' . $element['lastname'] . '</td><td>'
+              . $element['firstname'] . '</td><td>' .$element['corporate'].'</td><td>'
+              . $element['birthday'] . '</td><td>'.$element['address'].'</td><td>'
+              .$element['code'].'</td><td> '. $element['city']. '</td><td>'
+              . $element['phone'] . '</td></tr>';
+            }
           }
+
         ?>
       </tbody>
     </table>
