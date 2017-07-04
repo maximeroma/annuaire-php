@@ -14,6 +14,8 @@
   // $age = $_POST['age'];
   // $phone = $_POST['phone'];
 
+  $checkbox = $_POST['checkbox'];
+
   if (!empty($_POST['lastname']) && !empty($_POST['firstname'])
   && !empty($_POST['corporate']) && !empty($_POST['birthday'])
   && !empty($_POST['address']) && !empty($_POST['code'])
@@ -30,6 +32,18 @@
       'city'=> $_POST['city'],
       'phone'=> $_POST['phone']
     ));
+
+    if(!empty($checkbox)){
+      $lastId = $bdd->lastInsertId();
+      foreach($checkbox as $element){
+        $query = 'INSERT INTO appartenir(FK_contact, FK_groupe) VALUES(:FK_contact, :FK_groupe)';
+        $req = $bdd->prepare($query);
+        $req->execute(array(
+          'FK_contact' => $lastId,
+          'FK_groupe' => $element
+        ));
+      }
+    }
   }
   else {
     echo 'failed';

@@ -6,13 +6,15 @@
     die('Erreur :' . $e->getMessage());
   }
 
-  $reponse = $bdd->query('SELECT * FROM groupe');
+  $groupe = $_POST['group'];
+  $query = 'SELECT * FROM groupe';
+  $reponse = $bdd->query($query);
 
-  if(!empty($_POST['group'])){
+  if(!empty($groupe)){
     echo 'success';
     $req = $bdd->prepare('INSERT INTO groupe(name) VALUES(:name)');
     $req->execute(array(
-      'name'=> $_POST['group'],
+      'name'=> $groupe,
     ));
   }
   else{

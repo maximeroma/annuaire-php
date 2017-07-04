@@ -28,17 +28,25 @@
         }
         $reponse = $bdd->query('SELECT * FROM annuaire');
 
+        //print_r($reponse->fetch());
+
         foreach($reponse as $element){
           echo '<tr><td>'. $element['id'] .'</td><td>' . $element['lastname'] . '</td><td>'
           . $element['firstname'] . '</td><td>' .$element['corporate'].'</td><td>'
           . $element['birthday'] . '</td><td>'.$element['address'].'</td><td>'
           .$element['code'].'</td><td> '. $element['city']. '</td><td>'
-          . $element['phone'] . '</td><td><a href="modifUser.php?id='.$element['id'].'" ><button type="button" class="btn">Modifier</button></a></td></tr>';
+          . $element['phone'] . '</td><td><a href="modifUser.php?id='.$element['id'].'" class="btn btn-default">UPDATE</button></a></td>
+          <td><a href="usersTable.php?id='.$element['id'].'&name=delete" class="btn btn-danger">DELETE</button></a></td></tr>';
+        }
+
+        if($_GET['name']==="delete" && !empty($_GET['id'])){
+          $bdd->exec('DELETE FROM annuaire WHERE id='.$_GET['id'].'');
         }
 
         ?>
       </tbody>
     </table>
+    <a href="userRegister.php" class="btn btn-success">ADD</button></a>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>
