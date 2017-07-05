@@ -49,7 +49,7 @@
           . $element['firstname'] . '</td><td>' .$element['corporate'].'</td><td>'
           . $element['birthday'] . '</td><td>'.$element['address'].'</td><td>'
           .$element['code'].'</td><td> '. $element['city']. '</td><td>'
-          . $element['phone'] . '</td><td><a href="modifUser.php?id='.$element['id'].'" class="btn btn-default">UPDATE</button></a></td>
+          . $element['phone'] . '</td><td><a href="modifUser.php?id='.$element['id'].'&action=updateContact" class="btn btn-default">UPDATE</button></a></td>
           <td><a href="usersTable.php?id='.$element['id'].'&name=delete" class="btn btn-danger">DELETE</button></a></td></tr>';
         }
 

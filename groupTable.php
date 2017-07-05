@@ -14,7 +14,7 @@
       <tbody>
         <?php
           try{
-            $bdd = new PDO('mysql:host=localhost;dbname=annuaire-php;charset=utf8', 'annuaire-php', 'fyzCUeC935WghByd');
+            $bdd = new PDO('mysql:host=localhost;dbname=annuaire-php;charset=utf8', 'annuaire-php', 'fyzCUeC935WghByd', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
           }
           catch(Exception $e){
             die('Erreur :' . $e->getMessage());
@@ -47,7 +47,7 @@
         $reponse = $bdd->query($query);
         foreach($reponse as $element){
           echo '<tr><td>' . $element['id'] . '</td><td>' . $element['name']
-          . '</td><td><a role="button" class="btn btn-default" href="groupTable.php?id='. $element['id'] .'&role=update">UPDATE</a></td>
+          . '</td><td><a role="button" class="btn btn-default" href="modifTable.php?idGroupe='. $element['id'] .'&action=updateGroupe">UPDATE</a></td>
           <td><a class="btn btn-danger" role="button" href="groupTable.php?id='. $element['id'] .'&role=delete">DELETE</a></td><tr>'
           ;
         }
@@ -64,27 +64,9 @@
       }
     ?>
 
-    <form action="groupTable.html?role=updated" method="post">
-      <div class="form-group">
-      <label for="groupeModif">Nom à modifier</label>
-       <input type="text" name="name" class="form-control" value="<?php Update(); ?>">
-      </div>
-      <button class="btn-success btn" type="submit" name="button">Update</button>
-    </form>
 
-    <?php
-    var_dump(Update());
 
-      function Update(){
-        if(!empty($_GET['id']) && $_GET['role'] === "update"){
-          $query = 'SELECT * FROM groupe WHERE id='. $_GET['id'] .'';
-          $reponse = $bdd->query($query);
-          //$donnees = $reponse->fetch();
-          return $reponse['name'];
-        }
 
-      }
-    ?>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
